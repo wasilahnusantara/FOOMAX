@@ -66,7 +66,8 @@ export interface MemberData {
     orderHistory: MemberOrderHistory[];
 }
 
-// Admin Dashboard Types
+// --- NEW ADMIN TYPES ---
+
 export interface AdminStats {
     totalMerchants: number;
     totalMarketers: number;
@@ -74,16 +75,52 @@ export interface AdminStats {
     totalPlatformRevenue: string; // 1.0%
 }
 
-export interface RecentActivity {
-    id: number;
-    type: 'new_marketer' | 'new_merchant' | 'payout';
-    description: string;
+export interface MerchantKYC {
+    id: string;
+    name: string;
+    location: string;
+    status: 'active' | 'pending' | 'suspended';
+    documents: {
+        ssm: boolean;
+        halalCert: boolean;
+        shopPhoto: boolean;
+    };
+    joinDate: string;
+}
+
+export interface AdRequest {
+    id: string;
+    merchantName: string;
+    content: string; // e.g. "Promo Merdeka Banner"
+    duration: string;
+    budget: string;
+    status: 'pending' | 'approved' | 'rejected';
+}
+
+export interface FinancialLog {
+    id: string;
+    merchant: string;
+    amount: string; // Total Sales
+    agencyFee: string; // 5.5%
+    date: string;
+    status: 'paid' | 'pending';
+}
+
+export interface UserReport {
+    id: string;
+    reporter: string;
+    target: string;
+    reason: string;
+    status: 'open' | 'resolved';
 }
 
 export interface AdminData {
     stats: AdminStats;
-    recentActivity: RecentActivity[];
-    systemStatus: string;
+    merchants: MerchantKYC[];
+    adRequests: AdRequest[];
+    financeLogs: FinancialLog[];
+    reports: UserReport[];
+    systemStatus: 'Online' | 'Maintenance' | 'Issues';
 }
 
 // Territory Partner (Ex-Watcher) Types - Akad: Ujrah al-Ishraf

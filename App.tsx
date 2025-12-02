@@ -109,12 +109,23 @@ function App() {
             totalPlatformRevenue: 'Rp 15,000,000', // 1% Ujrah al-Nizam
             totalInfaqCollected: 'Rp 15,000,000', // 1% Tabarru'
         },
-        recentActivity: [
-            { id: 1, type: 'new_merchant', description: 'Restoran Sederhana joined the agency.' },
-            { id: 2, type: 'new_marketer', description: 'Budi registered as a marketer.' },
-            { id: 3, type: 'payout', description: 'Monthly Ju\'alah distributed to marketers.' },
+        merchants: [
+            { id: 'M-01', name: 'Restoran Sederhana', location: 'Jakarta Selatan', status: 'active', documents: { ssm: true, halalCert: true, shopPhoto: true }, joinDate: '2024-01-15' },
+            { id: 'M-02', name: 'Warung Bu Ani', location: 'Bandung', status: 'pending', documents: { ssm: true, halalCert: false, shopPhoto: true }, joinDate: '2024-02-20' },
+            { id: 'M-03', name: 'Sate Pak Kumis', location: 'Jakarta Pusat', status: 'suspended', documents: { ssm: true, halalCert: true, shopPhoto: true }, joinDate: '2023-11-05' },
         ],
-        systemStatus: 'Agency Platform Active'
+        adRequests: [
+            { id: 'AD-01', merchantName: 'Restoran Sederhana', content: 'Promo Merdeka: Diskon 17%', duration: '7 Hari', budget: 'Rp 500.000', status: 'pending' },
+            { id: 'AD-02', merchantName: 'Bebek Kaleyo', content: 'Banner Homepage Utama', duration: '30 Hari', budget: 'Rp 2.000.000', status: 'approved' },
+        ],
+        financeLogs: [
+            { id: 'TX-991', merchant: 'Pagi Sore', amount: 'Rp 10.000.000', agencyFee: 'Rp 550.000', date: '2024-02-25', status: 'paid' },
+            { id: 'TX-992', merchant: 'Sate Khas Senayan', amount: 'Rp 5.000.000', agencyFee: 'Rp 275.000', date: '2024-02-26', status: 'pending' },
+        ],
+        reports: [
+            { id: 'R-01', reporter: 'User_99', target: 'Warung Bu Ani', reason: 'Makanan basi saat diterima', status: 'open' },
+        ],
+        systemStatus: 'Online'
     };
     setAdminData(mockAdminData);
 
