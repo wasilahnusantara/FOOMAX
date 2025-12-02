@@ -12,41 +12,53 @@ export interface Recipe {
 export interface DashboardData {
   popularDishes: string[];
   trendingIngredients: string[];
+  financials: {
+      grossSales: string;
+      netPayout: string; // 94.5%
+      marketingCost: string; // 5.5%
+      totalTransactions: number;
+  }
 }
 
-// Runner Dashboard Types
-export interface Order {
+// Auth Types - Added 'runner' back
+export type UserRole = 'member' | 'marketer' | 'merchant' | 'admin' | 'territory' | 'leader' | 'runner';
+
+export interface User {
+    name: string;
+    email: string;
+    role: UserRole;
+}
+
+// Marketer (Ex-Runner) Types - Akad: Ju'alah
+export interface MarketingCampaign {
   id: string;
-  customerName: string;
+  dishName: string;
   restaurant: string;
-  deliveryAddress: string;
-  status: 'Pending Pickup' | 'In Transit' | 'Delivered';
+  commissionRate: string; // "3.0%"
+  potentialEarning: string;
+  clicks: number;
+  conversions: number;
 }
 
-export interface RunnerStats {
-    completedDeliveries: number;
-    averageDeliveryTime: string; // e.g., "25 mins"
-    totalEarnings: string; // e.g., "$150.75"
+export interface MarketerStats {
+    totalCommission: string; // Ju'alah
+    totalSalesGenerated: string;
+    conversionRate: string;
 }
 
-export interface RunnerAlert {
-    id: number;
-    type: 'new_order' | 'info' | 'urgent' | 'warning';
-    message: string;
+export interface MarketerData {
+    activeCampaigns: MarketingCampaign[];
+    stats: MarketerStats;
+    name: string;
 }
 
-export interface RunnerData {
-    activeOrders: Order[];
-    stats: RunnerStats;
-    alerts: RunnerAlert[];
-}
-
-// Member Dashboard Types
+// Member Types
 export interface MemberOrderHistory {
     id: string;
     dishName: string;
     restaurant: string;
-    date: string; // e.g., "2024-07-28"
+    date: string;
+    price: string;
 }
 
 export interface MemberData {
@@ -56,15 +68,15 @@ export interface MemberData {
 
 // Admin Dashboard Types
 export interface AdminStats {
-    totalUsers: number;
-    totalRestaurants: number;
-    totalRunners: number;
-    totalOrders: number;
+    totalMerchants: number;
+    totalMarketers: number;
+    totalInfaqCollected: string; // 1.0%
+    totalPlatformRevenue: string; // 1.0%
 }
 
 export interface RecentActivity {
     id: number;
-    type: 'new_user' | 'new_restaurant' | 'milestone';
+    type: 'new_marketer' | 'new_merchant' | 'payout';
     description: string;
 }
 
@@ -74,22 +86,60 @@ export interface AdminData {
     systemStatus: string;
 }
 
-// Watcher Dashboard Types
+// Territory Partner (Ex-Watcher) Types - Akad: Ujrah al-Ishraf
+export interface TerritoryStats {
+    regionName: string;
+    totalMerchants: number;
+    totalSalesVolume: string;
+    supervisionFee: string; // 0.5%
+}
+
+export interface TerritoryData {
+    stats: TerritoryStats;
+    topPerformers: { name: string; role: 'Merchant' | 'Marketer'; volume: string }[];
+}
+
+// Runner / Jastip Types
+export interface Order {
+    id: string;
+    restaurant: string;
+    customerName: string;
+    deliveryAddress: string;
+    status: 'Pending Pickup' | 'In Transit' | 'Delivered';
+}
+
+export interface RunnerAlert {
+    id: number;
+    type: 'new_order' | 'urgent' | 'warning' | 'info';
+    message: string;
+}
+
+export interface RunnerStats {
+    completedDeliveries: number;
+    averageDeliveryTime: string;
+    totalEarnings: string;
+}
+
+export interface RunnerData {
+    activeOrders: Order[];
+    alerts: RunnerAlert[];
+    stats: RunnerStats;
+}
+
 export interface LiveLog {
     id: number;
     timestamp: string;
-    service: 'auth' | 'orders' | 'delivery' | 'database';
-    message: string;
     level: 'info' | 'warning' | 'error';
+    message: string;
 }
 
-export interface PerformanceMetric {
+export interface WatcherPerformance {
     uptime: string;
-    apiLatency: string; // e.g., "45ms"
-    dbUsage: string; // e.g., "65%"
+    apiLatency: string;
+    dbUsage: string;
 }
 
 export interface WatcherData {
+    performance: WatcherPerformance;
     liveLogs: LiveLog[];
-    performance: PerformanceMetric;
 }

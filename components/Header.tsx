@@ -1,95 +1,87 @@
 
 import React from 'react';
 
-const FoomaxLogoIcon = () => (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-14 w-auto md:h-16" viewBox="0 0 105 60" fill="none">
-        {/* The main green color is now applied via a parent class */}
-        <g className="fill-current">
-            {/* Speed Lines */}
-            <path d="M26.34 23.95H3.66a2.66 2.66 0 1 1 0-5.32h22.68a2.66 2.66 0 1 1 0 5.32z"/>
-            <path d="M35.66 32.27H.98a2.66 2.66 0 1 1 0-5.32h34.68a2.66 2.66 0 1 1 0 5.32z"/>
-            <path d="M29.67 40.58H8.33a2.66 2.66 0 0 1 0-5.31h21.34a2.66 2.66 0 0 1 0 5.31z"/>
-            {/* Cloche Base */}
-            <path d="M40.64 57.34c-1.47 0-2.66-1.19-2.66-2.66v-3.3c0-1.47 1.19-2.66 2.66-2.66h23.72c1.47 0 2.66 1.19 2.66 2.66v3.3c0 1.47-1.19 2.66-2.66 2.66H40.64z"/>
-            <path d="M85.9 52.34H69.58c-3.1 0-5.62-2.52-5.62-5.62V45.9c0-.4-.33-.73-.73-.73h-7.86c-.4 0-.73.33-.73.73v.82c0 3.1-2.52 5.62-5.62 5.62H34.1c-1.47 0-2.66-1.19-2.66-2.66s1.19-2.66 2.66-2.66h9.54c.73 0 1.33-.6 1.33-1.33s-.6-1.33-1.33-1.33H33.37c-1.47 0-2.66-1.19-2.66-2.66s1.19-2.66 2.66-2.66h53.26c1.47 0 2.66 1.19 2.66 2.66s-1.19 2.66-2.66 2.66h-.97c-.73 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33h1.7c1.47 0 2.66 1.19 2.66 2.66s-1.19 2.66-2.66 2.66z"/>
-            {/* Cloche Lid */}
-            <path d="M96.42 41.24c-1.43-1.9-3.08-3.66-4.93-5.26-12.8-10.99-30.8-12.1-45.18-3.32-4.52 2.76-8.4 6.6-11.45 11.24H96.42z"/>
-            {/* Cloche Handle */}
-            <path d="M72.24 10.97c0-2.31-1.87-4.18-4.18-4.18s-4.18 1.87-4.18 4.18c0 1.86 1.22 3.44 2.89 3.96a2.66 2.66 0 0 1-2.22 2.6c-2.8.54-4.5 3.19-4.5 6.07 0 1.47 1.19 2.66 2.66 2.66h10.7c1.47 0 2.66-1.19 2.66-2.66 0-2.88-1.7-5.53-4.5-6.07a2.66 2.66 0 0 1-2.22-2.6c1.67-.52 2.89-2.1 2.89-3.96z"/>
+// LOGO FIXED: Updated with specific SVG code provided by user
+const FoomaxLogoIcon = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg width="500" height="500" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" {...props}>
+        <circle cx="250" cy="220" r="160" stroke="#fcd64e" strokeWidth="20" fill="none" />
+        <g transform="translate(0, -10)">
+            <rect x="220" y="115" width="110" height="20" rx="10" fill="#1a7f64" />
+            <path d="M185,115 L185,250 Q185,290 225,290 L260,290 A10,10 0 0,0 260,270 L225,270 Q205,270 205,250 L205,200 L185,200 Z" fill="#1a7f64" />
+            <path d="M175,115 L175,180 Q175,200 195,200 L195,250 Q195,290 235,290 L235,290" fill="none" />
+            <g fill="#1a7f64">
+                <path d="M175,120 L175,170 Q175,185 185,185 L185,120 Z" />
+                <path d="M190,120 L190,170 Q190,185 195,185 Q200,185 200,170 L200,120 Z" />
+                <path d="M205,120 L205,170 Q205,185 210,185 Q215,185 215,170 L215,120 Z" />
+                <path d="M195,180 L195,250 Q195,290 235,290 L265,290 A10,10 0 0,0 265,270 L235,270 Q215,270 215,250 L215,180 Z" />
+            </g>
+            <path d="M260,160 A50,50 0 1,1 260,260 A40,40 0 1,0 260,160 Z" fill="#fcd64e" transform="translate(15, 0)"/>
+            <polygon points="300,175 306,190 322,190 310,200 314,215 300,205 286,215 290,200 278,190 294,190" fill="#fcd64e" transform="translate(5, -5)"/>
         </g>
-        {/* Light Green Accent */}
-        <path fill="#a3d46a" d="M47.85 20.32c12.23-7.53 28.5-6.73 39.8 2.22-2.12-3.16-4.8-5.93-7.92-8.2-12.81-11-30.8-12.1-45.19-3.32-2.73 1.66-5.21 3.73-7.36 6.12 6.84-4.8 15.3-5.7 20.67-3.18z"/>
+        <text x="250" y="460" fontFamily="Arial, Helvetica, sans-serif" fontWeight="900" fontSize="75px" fill="#1a7f64" textAnchor="middle">FOOMAX</text>
     </svg>
 );
 
-type ViewType = 'finder' | 'dashboard' | 'runner' | 'member' | 'admin' | 'watcher';
+type ViewType = 'finder' | 'merchant' | 'marketer' | 'member' | 'admin' | 'territory' | 'runner';
 
 interface HeaderProps {
-    view: ViewType;
+    view: string;
     setView: (view: ViewType) => void;
+    onLogout: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ view, setView }) => {
+const Header: React.FC<HeaderProps> = ({ view, setView, onLogout }) => {
 
   const buttonClass = (buttonView: ViewType) => 
     `px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-brand-green-light focus:ring-opacity-50 ${
         view === buttonView 
-        ? 'bg-brand-green-dark text-white shadow-lg' 
-        : 'text-text-secondary hover:text-text-primary hover:bg-white/10'
+        ? 'bg-brand-green-dark text-white shadow-lg border border-brand-green-light' 
+        : 'text-brand-green-text hover:text-brand-green-dark hover:bg-orange-100'
     }`;
     
   return (
-    <header className="bg-card/80 backdrop-blur-sm border-b border-border-color w-full sticky top-0 z-10">
-      <div className="container mx-auto flex flex-col items-center justify-center py-4 text-brand-green-dark">
-        <FoomaxLogoIcon />
-        <h1 className="text-4xl md:text-5xl font-extrabold text-brand-green-text tracking-tighter mt-1">
-          FOOMAX
-        </h1>
-        <p className="text-sm md:text-base font-semibold tracking-widest text-brand-green-dark">
-          HALAL & SYAR'I
-        </p>
-      </div>
-      <nav className="container mx-auto flex justify-center pb-4 px-2">
-        <div className="flex flex-col items-center gap-2 p-2 bg-black/20 rounded-xl">
-            <div className="flex items-center gap-2">
-                <button 
-                    onClick={() => setView('finder')}
-                    className={buttonClass('finder')}
-                >
-                    Recipe Finder
-                </button>
-                <button
-                    onClick={() => setView('member')}
-                    className={buttonClass('member')}
-                >
-                    Member
-                </button>
-                <button 
-                    onClick={() => setView('dashboard')}
-                    className={buttonClass('dashboard')}
-                >
-                    Restaurant
-                </button>
+    <header className="bg-white/95 backdrop-blur-sm border-b-2 border-brand-green-light w-full sticky top-0 z-10 shadow-sm">
+      <div className="container mx-auto flex items-center justify-between py-3 px-4">
+         {/* Spacer Left */}
+         <div className="flex-1"></div>
+         
+         {/* Logo Center */}
+         <div className="flex flex-col items-center cursor-pointer group" onClick={() => setView('finder')}>
+            <div className="transform transition-transform group-hover:scale-105 duration-300">
+                <FoomaxLogoIcon className="h-20 w-auto md:h-24" />
             </div>
-            <div className="flex items-center gap-2">
-                 <button
-                    onClick={() => setView('runner')}
-                    className={buttonClass('runner')}
-                >
-                    Runner
-                </button>
-                 <button
-                    onClick={() => setView('admin')}
-                    className={buttonClass('admin')}
-                >
-                    Admin
-                </button>
-                <button
-                    onClick={() => setView('watcher')}
-                    className={buttonClass('watcher')}
-                >
-                    Watcher
-                </button>
+            {/* Removed duplicate HTML text as SVG now contains FOOMAX text */}
+            <p className="text-[10px] md:text-xs font-bold tracking-[0.3em] text-brand-green-light uppercase -mt-2">
+            Halal & Syar'i
+            </p>
+         </div>
+
+         {/* Logout Button Right */}
+         <div className="flex-1 flex justify-end">
+            <button 
+                onClick={onLogout}
+                className="text-sm font-bold text-brand-green-dark hover:text-red-600 flex items-center gap-1 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200 transition-colors"
+            >
+                <span>Logout</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+            </button>
+         </div>
+      </div>
+
+      <nav className="container mx-auto flex justify-center pb-3 px-2 overflow-x-auto no-scrollbar">
+        <div className="flex flex-col sm:flex-row items-center gap-2 p-1.5 bg-orange-50/80 rounded-xl border border-brand-green-light/30 min-w-max shadow-inner">
+            <div className="flex items-center gap-1 sm:gap-2">
+                <button onClick={() => setView('finder')} className={buttonClass('finder')}>Recipe Finder</button>
+                <button onClick={() => setView('member')} className={buttonClass('member')}>Member</button>
+                <button onClick={() => setView('merchant')} className={buttonClass('merchant')}>Merchant</button>
+            </div>
+            <div className="flex items-center gap-1 sm:gap-2">
+                 <button onClick={() => setView('marketer')} className={buttonClass('marketer')}>Marketer</button>
+                <button onClick={() => setView('runner')} className={buttonClass('runner')}>Runner</button>
+                 <button onClick={() => setView('admin')} className={buttonClass('admin')}>Admin</button>
+                <button onClick={() => setView('territory')} className={buttonClass('territory')}>Territory</button>
             </div>
         </div>
       </nav>

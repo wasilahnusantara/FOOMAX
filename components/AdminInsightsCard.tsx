@@ -1,29 +1,29 @@
 
 import React, { useState, useEffect } from 'react';
 import { generateAdminInsights } from '../services/geminiService';
-import type { DashboardData, RunnerStats } from '../types';
+import type { DashboardData, MarketerStats } from '../types';
 import DashboardCard from './DashboardCard';
 
 interface AdminInsightsCardProps {
     popularDishes: DashboardData['popularDishes'];
-    runnerStats: RunnerStats;
+    marketerStats: MarketerStats;
 }
 
-const AdminInsightsCard: React.FC<AdminInsightsCardProps> = ({ popularDishes, runnerStats }) => {
+const AdminInsightsCard: React.FC<AdminInsightsCardProps> = ({ popularDishes, marketerStats }) => {
     const [insight, setInsight] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchInsight = async () => {
-            if (!popularDishes || !runnerStats) {
+            if (!popularDishes || !marketerStats) {
                 setIsLoading(false);
                 return;
             };
             setIsLoading(true);
             setError(null);
             try {
-                const generatedInsight = await generateAdminInsights(popularDishes, runnerStats);
+                const generatedInsight = await generateAdminInsights(popularDishes, marketerStats);
                 setInsight(generatedInsight);
             } catch (err) {
                 setError("Could not generate insight. Please try again later.");
@@ -33,14 +33,14 @@ const AdminInsightsCard: React.FC<AdminInsightsCardProps> = ({ popularDishes, ru
         };
 
         fetchInsight();
-    }, [popularDishes, runnerStats]);
+    }, [popularDishes, marketerStats]);
 
     const renderContent = () => {
         if (isLoading) {
             return (
                 <div className="flex items-center justify-center h-24">
-                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-brand-green-light"></div>
-                     <p className="ml-3 text-text-secondary">Analyzing data...</p>
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500"></div>
+                     <p className="ml-3 text-text-secondary">Analyzing market trends...</p>
                 </div>
             )
         }
@@ -56,7 +56,7 @@ const AdminInsightsCard: React.FC<AdminInsightsCardProps> = ({ popularDishes, ru
     }
 
     return (
-        <DashboardCard title="AI Business Insight" icon={<BrainIcon />}>
+        <DashboardCard title="AI Strategic Insight" icon={<BrainIcon />}>
            {renderContent()}
         </DashboardCard>
     );

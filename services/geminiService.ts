@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import type { Recipe, RunnerStats, LiveLog } from '../types';
+import type { Recipe, MarketerStats, LiveLog } from '../types';
 
 if (!process.env.API_KEY) {
   throw new Error("API_KEY environment variable not set");
@@ -50,8 +50,7 @@ const recipeSchema = {
 };
 
 export const generateRecipe = async (dishName: string): Promise<Recipe> => {
-  // FIX: Moved persona and formatting instructions to systemInstruction for better API usage.
-  const systemInstruction = "You are an expert Halal and Syar'i chef. Your task is to provide delicious, authentic, and easy-to-follow Halal recipes. You must ensure all ingredients are Halal-compliant, and must not include any non-Halal ingredients like pork, alcohol, or their derivatives. You must respond ONLY with a valid JSON object that adheres to the provided schema.";
+  const systemInstruction = "You are an expert Halal and Syar'i chef. Your task is to provide delicious, authentic, and easy-to-follow Halal recipes. You must ensure all ingredients are Halal-compliant. Respond ONLY with a valid JSON object.";
 
   try {
     const response = await ai.models.generateContent({
@@ -79,8 +78,8 @@ export const generateRecipe = async (dishName: string): Promise<Recipe> => {
 };
 
 export const generateDishOfTheDay = async (trendingIngredients: string[]): Promise<string> => {
-  const systemInstruction = "You are a creative restaurant consultant. Your task is to invent an appealing 'Dish of the Day' for a Halal restaurant. The response should be concise and enticing. Respond with only the dish name followed by a single, short descriptive sentence. Do not use markdown or any other formatting. Example: 'Galangal Infused Lamb Shank: Tender, slow-cooked lamb shank in a rich, aromatic galangal and coconut gravy.'";
-  const prompt = `Based on these trending ingredients: ${trendingIngredients.join(', ')}, create a unique and appealing Halal dish of the day.`;
+  const systemInstruction = "You are a creative restaurant consultant. Your task is to invent an appealing 'Dish of the Day'. Respond with the dish name followed by a single, short descriptive sentence.";
+  const prompt = `Based on these trending ingredients: ${trendingIngredients.join(', ')}, create a unique Halal dish.`;
 
   try {
     const response = await ai.models.generateContent({
@@ -97,9 +96,10 @@ export const generateDishOfTheDay = async (trendingIngredients: string[]): Promi
   }
 };
 
-export const generateOptimalRoute = async (addresses: string[]): Promise<string> => {
-    const systemInstruction = "You are a logistics expert specializing in delivery route optimization for a food delivery runner. Given a list of delivery addresses, provide the most efficient route as a numbered list. Be concise and clear. Do not add any conversational text before or after the list. Start directly with '1.'";
-    const prompt = `Here are the delivery addresses: ${addresses.join('; ')}. Suggest the most efficient delivery route.`;
+// NEW: Generates marketing copy instead of routes
+export const generateMarketingCopy = async (dishName: string, platform: string): Promise<string> => {
+    const systemInstruction = "You are a digital marketing expert specializing in viral food copywriting. Your task is to generate a catchy, persuasive, and Halal-friendly caption to sell a specific dish. Include emojis and hashtags.";
+    const prompt = `Write a short, viral marketing caption to sell "${dishName}" on ${platform}. Focus on the taste and the fact that it is Halal.`;
 
     try {
         const response = await ai.models.generateContent({
@@ -107,18 +107,18 @@ export const generateOptimalRoute = async (addresses: string[]): Promise<string>
             contents: prompt,
             config: {
                 systemInstruction,
-                temperature: 0.2, // Lower temperature for more deterministic routing
+                temperature: 0.9, 
             }
         });
         return response.text.trim();
     } catch (error) {
-        console.error("Error generating optimal route:", error);
-        throw new Error("Failed to generate optimal route.");
+        console.error("Error generating marketing copy:", error);
+        throw new Error("Failed to generate marketing copy.");
     }
 };
 
 export const generateMemberRecommendations = async (orderHistory: string[]): Promise<string> => {
-    const systemInstruction = "You are a food recommendation expert for a Halal food app. Based on a user's order history, suggest 3 new dishes they might enjoy. For each dish, provide a very short, one-sentence description. Respond only with a numbered list (e.g., '1. Dish Name - Description.'). Do not add any conversational text or markdown.";
+    const systemInstruction = "You are a food recommendation expert. Suggest 3 new dishes based on history. Numbered list only.";
     const prompt = `Based on my past orders of: ${orderHistory.join(', ')}, what should I try next?`;
 
     try {
@@ -132,14 +132,14 @@ export const generateMemberRecommendations = async (orderHistory: string[]): Pro
         });
         return response.text.trim();
     } catch (error) {
-        console.error("Error generating member recommendations:", error);
+        console.error("Error generating recommendations:", error);
         throw new Error("Failed to generate recommendations.");
     }
 };
 
-export const generateAdminInsights = async (popularDishes: string[], runnerStats: RunnerStats): Promise<string> => {
-    const systemInstruction = "You are a senior business analyst for a food delivery platform named Foomax. Your task is to analyze platform data and provide a concise, actionable business insight. The insight should help drive growth or improve efficiency. Respond with a single paragraph. Do not use markdown or conversational language.";
-    const prompt = `Based on the following data: The most popular dishes are currently ${popularDishes.join(', ')}. Our runners' average delivery time is ${runnerStats.averageDeliveryTime} with a total of ${runnerStats.completedDeliveries} deliveries completed this period. What is one strategic recommendation for the platform?`;
+export const generateAdminInsights = async (popularDishes: string[], marketerStats: MarketerStats): Promise<string> => {
+    const systemInstruction = "You are a business analyst for a food marketing agency. Analyze the data and provide one strategic recommendation to increase total sales volume.";
+    const prompt = `Most popular dishes: ${popularDishes.join(', ')}. Marketer Total Sales: ${marketerStats.totalSalesGenerated}. Marketer Conversion Rate: ${marketerStats.conversionRate}. What is one strategy to help marketers sell more?`;
 
     try {
         const response = await ai.models.generateContent({
@@ -157,10 +157,50 @@ export const generateAdminInsights = async (popularDishes: string[], runnerStats
     }
 };
 
+export const analyzeTerritoryPerformance = async (region: string, sales: string): Promise<string> => {
+    const systemInstruction = "You are a regional sales director. Analyze the territory performance and give brief advice on how to recruit more merchants.";
+    const prompt = `Region: ${region}. Total Sales Volume: ${sales}. Provide 3 bullet points on how to grow this territory.`;
+
+    try {
+        const response = await ai.models.generateContent({
+            model: "gemini-2.5-flash",
+            contents: prompt,
+            config: {
+                systemInstruction,
+                temperature: 0.5,
+            }
+        });
+        return response.text.trim();
+    } catch (error) {
+        console.error("Error analyzing territory:", error);
+        throw new Error("Failed to analyze territory.");
+    }
+};
+
+export const generateOptimalRoute = async (addresses: string[]): Promise<string> => {
+  const systemInstruction = "You are a logistics expert. Optimize the delivery route for efficiency. Return a numbered list.";
+  const prompt = `Optimize a route for these stops: ${addresses.join(', ')}.`;
+
+  try {
+    const response = await ai.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: prompt,
+        config: {
+          systemInstruction,
+          temperature: 0.2,
+        }
+    });
+    return response.text.trim();
+  } catch (error) {
+    console.error("Error optimizing route:", error);
+    throw new Error("Failed to optimize route.");
+  }
+};
+
 export const detectAnomalies = async (logs: LiveLog[]): Promise<string> => {
-    const systemInstruction = "You are a site reliability engineer (SRE) AI assistant. Your task is to analyze system logs to detect anomalies or potential issues. Review the provided logs and summarize any suspicious patterns in a concise bulleted list. If no issues are found, respond with 'All systems appear normal.' Do not use markdown.";
-    const formattedLogs = logs.map(log => `[${log.timestamp}][${log.service}][${log.level.toUpperCase()}] ${log.message}`).join('\n');
-    const prompt = `Here are the recent system logs:\n${formattedLogs}\n\nPlease analyze these for any anomalies.`;
+    const systemInstruction = "You are a system administrator. Analyze logs for security threats or performance issues.";
+    const logsText = logs.map(l => `[${l.timestamp}] [${l.level.toUpperCase()}] ${l.message}`).join('\n');
+    const prompt = `Analyze these system logs:\n${logsText}\n\nReport any anomalies or confirm system is normal.`;
 
     try {
         const response = await ai.models.generateContent({
@@ -174,6 +214,6 @@ export const detectAnomalies = async (logs: LiveLog[]): Promise<string> => {
         return response.text.trim();
     } catch (error) {
         console.error("Error detecting anomalies:", error);
-        throw new Error("Failed to detect anomalies.");
+        throw new Error("Failed to analyze logs.");
     }
 };

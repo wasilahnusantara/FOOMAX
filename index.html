@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -11,15 +12,30 @@
         theme: {
           extend: {
             colors: {
-              'brand-green-dark': '#0a4727',
-              'brand-green-light': '#a3d46a',
-              'brand-green-text': '#052e16',
-              // Dark Theme Palette
-              'background': '#121212',
-              'card': '#1E1E1E',
-              'text-primary': '#F5F5F5',
-              'text-secondary': '#A0A0A0',
-              'border-color': 'rgba(255, 255, 255, 0.1)',
+              // Palet Warna Baru sesuai Logo SVG (Hijau Teal & Kuning Emas)
+              'brand-green-dark': '#1a7f64', // Warna Hijau dari SVG
+              'brand-green-light': '#fcd64e', // Warna Kuning dari SVG
+              'brand-green-text': '#1a7f64', // Menggunakan warna hijau logo untuk teks brand
+              'brand-gold': '#fcd64e', // Alias untuk kuning emas
+              
+              // Mapping warna 'orange' yang lama ke warna Emas/Kuning agar desain konsisten tanpa merusak kode lama
+              'orange-50': '#fffbeb',
+              'orange-100': '#fef3c7',
+              'orange-200': '#fde68a',
+              'orange-300': '#fcd34d',
+              'orange-400': '#fbbf24',
+              'orange-500': '#f59e0b', // Gold Utama
+              'orange-600': '#d97706',
+              'orange-700': '#b45309',
+              'orange-800': '#92400e',
+              'orange-900': '#78350f',
+              
+              // Bright Islamic Theme Palette
+              'background': '#FFFCF5', // Krem lembut
+              'card': '#FFFFFF',
+              'text-primary': '#422006', // Cokelat tua (Dark Brown)
+              'text-secondary': '#78350f', // Cokelat sedang
+              'border-color': '#fcd64e', // Kuning Emas Border (sesuai logo)
             },
             animation: {
               'fade-in': 'fadeIn 0.5s ease-in-out',
@@ -36,8 +52,7 @@
     </script>
     <style>
       body {
-        background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.03) 0, rgba(255, 255, 255, 0) 60%);
-        background-attachment: fixed;
+        background-color: #FFFCF5;
       }
     </style>
   <script type="importmap">
